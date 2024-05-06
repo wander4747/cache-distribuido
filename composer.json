@@ -1,0 +1,15 @@
+{
+    "name": "wander/cache-distribuido",
+    "authors": [
+      {
+        "name": "wander4747",
+        "email": "wander.douglas14@gmail.com"
+      }
+    ],
+    "require": {},
+    "autoload": {
+      "psr-4": {
+        "App\\": "src/"
+      }
+    }
+}

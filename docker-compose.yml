@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  cache_php:
+    build: .docker/php
+    container_name: cache_php
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    tty: true
+    networks:
+      - cache_network
+
+  cache_redis:
+    container_name: cache_redis
+    image: redis:7-alpine3.16
+    ports:
+      - "63799:6379"
+    networks:
+      - cache_network
+
+  cache_redis_commander:
+    container_name: cache_redis_commander
+    image: rediscommander/redis-commander:latest
+    ports:
+      - "8082:8081"
+    environment:
+      - REDIS_HOSTS=local:cache_redis
+    depends_on:
+      - cache_redis
+    networks:
+      - cache_network
+
+networks:
+  cache_network:
+    driver: bridge
